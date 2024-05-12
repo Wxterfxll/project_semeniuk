@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Детальний список відтворення</title>
+		<style>
+			body {
+				font-family: Arial, sans-serif;
+				background-color: #f4f4f4;
+				margin: 0;
+				padding: 0;
+			}
+			.container {
+				max-width: 800px;
+				margin: 20px auto;
+				background-color: #fff;
+				border-radius: 8px;
+				box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+				padding: 20px;
+			}
+			h2 {
+				color: #007bff;
+				margin-bottom: 20px;
+				text-align: center;
+			}
+			p {
+				margin-bottom: 10px;
+				font-size: 18px;
+
+			}
+			strong {
+				font-weight: bold;
+			}
+			.delete-btn {
+				font-size: 16px;
+				background-color: #dc3545; 
+				color: #fff;
+				padding: 4px 8px;
+				border: none;
+				border-radius: 4px;
+				cursor: pointer;
+				transition: background-color 0.3s ease;
+			}
+			.delete-btn:hover {
+				background-color: #c82333;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<h2>Детальний список відтворення</h2>
+			<p><strong>Ім'я:</strong> {{ playlist.name }}</p>
+			<p><strong>Створено:</strong> {{ playlist.user.username }}</p>
+
+			{% if playlist.songs.all %}
+			<h3>Пісні:</h3>
+			<ul>
+				{% for song in playlist.songs.all %}
+				<li>
+					{{ song.title }} by {{ song.artist }} ({{ song.genre }})
+					<form
+						action="{% url 'remove_from_playlist' playlist.id song.id %}"
+						method="post"
+						style="display: inline"
+					>
+						{% csrf_token %} | 
+						<button type="submit" class="delete-btn">Видалити</button>
+					</form>
+				</li>
+				{% endfor %}
+			</ul>
+			{% else %}
+			<p>У вас немає жодної добавленої пісні!</p>
+			{% endif %}
+
+			<form action="{% url 'delete_playlist' playlist.id %}" method="post">
+				{% csrf_token %}
+				<button type="submit" class="delete-btn">Видалити список відтворення</button>
+			</form>
+		</div>
+	</body>
+</html>

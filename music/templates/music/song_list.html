@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Список пісень</title>
+		<style>
+			body {
+				font-family: Arial, sans-serif;
+				background-color: #f4f4f4;
+				margin: 0;
+				padding: 0;
+			}
+			.container {
+				max-width: 800px;
+				margin: 20px auto;
+				background-color: #fff;
+				border-radius: 8px;
+				box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+				padding: 20px;
+			}
+			h2 {
+				color: #333;
+				margin-bottom: 20px;
+			}
+			form {
+				margin-bottom: 20px;
+			}
+			label {
+				font-weight: bold;
+			}
+			input[type='text'] {
+				padding: 8px;
+				border: 1px solid #ccc;
+				border-radius: 4px;
+				margin-right: 10px;
+			}
+			button[type='submit'] {
+				padding: 8px 20px;
+				background-color: #007bff;
+				color: #fff;
+				border: none;
+				border-radius: 4px;
+				cursor: pointer;
+			}
+			select {
+				padding: 8px;
+				border: 1px solid #ccc;
+				border-radius: 4px;
+			}
+			ul {
+				list-style-type: none;
+				padding: 0;
+			}
+			li {
+				padding: 10px 0;
+				border-bottom: 1px solid #ccc;
+			}
+			li:last-child {
+				border-bottom: none;
+			}
+			a {
+				text-decoration: none;
+				color: #007bff;
+			}
+			a:hover {
+				text-decoration: underline;
+			}
+
+			.playlist-btn {
+				display: inline-block;
+				padding: 10px 20px;
+				background-color: #ff5722;
+				color: #fff;
+				text-decoration: none;
+				border-radius: 5px;
+				margin-top: 20px;
+				margin-right: 20px;
+			}
+
+			.playlist-btn:hover {
+				background-color: #f4511e;
+			}
+
+			/* Стилі для кнопки "Log out" */
+			.logout-btn {
+				padding: 8px 20px;
+				background-color: #dc3545;
+				color: #fff;
+				border: none;
+				border-radius: 4px;
+				cursor: pointer;
+				margin-right: 10px;
+			}
+
+			.logout-btn:hover {
+				background-color: #c82333;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<h2>Список доступних пісень</h2>
+			<form method="get" action="{% url 'song_list' %}">
+				<label for="genre">Фільтрація за жанром:</label>
+				<select id="genre" name="genre">
+					<option value="">Всі жанри</option>
+					{% for genre in genres %}
+					<option value="{{ genre }}">{{ genre }}</option>
+					{% endfor %}
+				</select>
+				<button type="submit">Виконати</button>
+			</form>
+			<ul>
+				{% for song in songs %}
+				<li>
+					{{ song.title }} - {{ song.artist }} -
+					<a href="{% url 'song_detail' song.id %}">Детальна інформація</a>
+				</li>
+				{% endfor %}
+			</ul>
+			<a href="{% url 'create_playlist' %}" class="playlist-btn">Створити плейлист</a>
+			<a href="{% url 'my_playlists' %}" class="playlist-btn">Переглянути мої плейлисти</a>
+		</div>
+		<div style="position: absolute; top: 20px; left: 20px">
+			<a href="{% url 'logout' %}" class="logout-btn">Вийти</a>
+		</div>
+	</body>
+</html>

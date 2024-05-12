@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Головна сторінка</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+            text-align: center;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .header p {
+            margin-bottom: 20px;
+        }
+        .auth-links {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+        .auth-links a {
+            display: inline-block;
+            padding: 10px 20px;
+            border: 2px solid transparent;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        .auth-links a.login {
+            background-color: #007bff;
+            color: #fff;
+        }
+        .auth-links a.register {
+            background-color: #fff;
+            color: #007bff;
+        }
+        .center-content {
+            margin-top: 50px;
+        }
+        .center-content a {
+            display: inline-block;
+            padding: 20px 40px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        .center-content a:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Ласкаво просимо до нашого додатку!</h1>
+            <p>Тут ви знайдете чудові пісні з різноманітних жанрів та зможете створити власні плейлисти, насолоджуючись улюбленою музикою у вашому власному ритмі.</p>
+        </div>
+        <div class="auth-links">
+            <a href="{% url 'login' %}" class="login">Увійти</a>
+            <a href="{% url 'register' %}" class="register">Зареєструватися</a>
+        </div>
+        <div class="center-content">
+            <a href="{% url 'song_list' %}">Переглянути пісні</a>
+        </div>
+    </div>
+</body>
+</html>

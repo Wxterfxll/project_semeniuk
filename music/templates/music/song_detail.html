@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Детальна інформація про пісню</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        p {
+            margin-bottom: 10px;
+        }
+        a {
+            text-decoration: none;
+            color: #007bff;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .btn-add-to-playlist {
+            display: inline-block;
+            padding: 8px 16px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .btn-add-to-playlist:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Детальна інформація про пісню</h2>
+        <p><strong>Назва:</strong> {{ song.title }}</p>
+        <p><strong>Виконавець:</strong> {{ song.artist }}</p>
+        <p><strong>Жанр:</strong> {{ song.genre }}</p>
+        
+        <form action="{% url 'add_to_playlist' song.id %}" method="post">
+            {% csrf_token %}
+            <label for="playlist">Додати до списку відтворення:</label>
+            <select name="playlist" id="playlist">
+                {% for playlist in playlists %}
+                    <option value="{{ playlist.id }}">{{ playlist.name }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit" class="btn-add-to-playlist">Додати до списку відтворення</button>
+        </form>
+        
+        <a href="{% url 'song_list' %}">Повернутись до списку пісень</a>
+    </div>
+</body>
+</html>
